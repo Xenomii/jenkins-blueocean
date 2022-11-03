@@ -34,11 +34,30 @@ services:
       - jenkins-data:/var/jenkins_home
     environment:
       - DOCKER_TLS_CERTDIR=/certs
+  sonarqb:
+    container_name: sonarqb
+    image: sonarqube
+    restart: always
+    networks:
+      - jenkins
+      - sonar
+    ports:
+      - 9000:9000
+    volumes:
+      - sonarqube-data:/opt/sonarqube/data
+      - sonarqube-extensions:/opt/sonarqube/extensions
+      - sonarqube-bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    environment:
+      - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
 
 networks:
   jenkins:
+  sonar:
 
 volumes:
   jenkins-data:
   jenkins-docker-certs:
+  sonarqube-data:
+  sonarqube-extensions:
+  sonarqube-bundled-plugins:
     
