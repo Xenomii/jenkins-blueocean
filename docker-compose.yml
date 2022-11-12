@@ -3,7 +3,7 @@ version: '3'
 services:
   jenkins:
     container_name: jenkins-blueocean
-    build: .
+    image: cryptoxic/percy-jenkins
     restart: unless-stopped
     networks:
       - jenkins
