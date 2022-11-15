@@ -6,7 +6,7 @@ services:
     image: cryptoxic/percy-jenkins
     restart: unless-stopped
     networks:
-      - jenkins
+      - docker
     ports:
       - 8080:8080
       - 50000:50000
@@ -26,7 +26,9 @@ services:
     restart: always
     tty: true
     networks:
-      - jenkins
+      docker:
+        aliases:
+          - docker
     ports:
       - 2376:2376
     volumes:
@@ -39,8 +41,8 @@ services:
     image: sonarqube
     restart: always
     networks:
-      - jenkins
-      - sonar
+      - docker
+      - qube
     ports:
       - 9000:9000
     volumes:
@@ -51,8 +53,8 @@ services:
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
 
 networks:
-  jenkins:
-  sonar:
+  docker:
+  qube:
 
 volumes:
   jenkins-data:
